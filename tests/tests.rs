@@ -31,6 +31,7 @@ describe "character_conversion" {
                 let upper = to_kana(&romaji.to_uppercase());
                 assert_eq!(lower, hiragana);
                 assert_eq!(upper, katakana);
+                        assert_eq!(hiragana.len(), katakana.len());
             }
         }
 
@@ -66,6 +67,7 @@ describe "character_conversion" {
     describe "converting_kana_to_kana" {
         it "k -> h" {
             assert_eq!(to_hiragana("バケル"), "ばける");
+            assert_eq!(to_hiragana("バケル").len(), "ばける".len());
         }
         it "h -> k" {
             assert_eq!(to_katakana("ばける"), "バケル");
@@ -78,23 +80,27 @@ describe "character_conversion" {
         }
         it "It survives only hiragana to_hiragana" {
             assert_eq!(to_hiragana("すたーいる"), "すたーいる");
+            assert_eq!(to_hiragana("すたーいる").len(), "すたーいる".len());
         }
         it "Mixed kana converts every char k -> h" {
             assert_eq!(to_katakana("アメリカじん"), "アメリカジン");
         }
         it "Mixed kana converts every char h -> k" {
             assert_eq!(to_hiragana("アメリカじん"), "あめりかじん");
+            assert_eq!(to_hiragana("アメリカじん").len(), "あめりかじん".len());
         }
     }
     describe "long_vowels" {
         it "Converts long vowels correctly from k -> h" {
           assert_eq!(to_hiragana("バツゴー"), "ばつごう");
+          assert_eq!(to_hiragana("バツゴー").len(), "ばつごう".len());
         }
         it "Preserves long dash from h -> k" {
           assert_eq!(to_katakana("ばつゲーム"), "バツゲーム");
         }
         it "Preserves long dash from h -> h" {
           assert_eq!(to_hiragana("ばつげーむ"), "ばつげーむ");
+          assert_eq!(to_hiragana("ばつげーむ").len(), "ばつげーむ".len());
         }
         it "Preserves long dash from k -> k" {
           assert_eq!(to_katakana("バツゲーム"), "バツゲーム");
@@ -107,18 +113,23 @@ describe "character_conversion" {
         }
         it "Preserves long dash from mixed -> h 1" {
           assert_eq!(to_hiragana("てすート"), "てすーと");
+          assert_eq!(to_hiragana("てすート").len(), "てすーと".len());
         }
         it "Preserves long dash from mixed -> h 2" {
           assert_eq!(to_hiragana("てすー戸"), "てすー戸");
+          assert_eq!(to_hiragana("てすー戸").len(), "てすー戸".len());
         }
         it "Preserves long dash from mixed -> h 3" {
           assert_eq!(to_hiragana("手巣ート"), "手巣ーと");
+          assert_eq!(to_hiragana("手巣ート").len(), "手巣ーと".len());
         }
         it "Preserves long dash from mixed -> h 4" {
           assert_eq!(to_hiragana("tesート"), "てsーと");
+          assert_eq!(to_hiragana("tesート").len(), "てsーと".len());
         }
         it "Preserves long dash from mixed -> h 5" {
           assert_eq!(to_hiragana("ートtesu"), "ーとてす");
+          assert_eq!(to_hiragana("ートtesu").len(), "ーとてす".len());
         }
     }
 
@@ -131,6 +142,7 @@ describe "character_conversion" {
         }
         it "It converts non-katakana when pass_romaji is false k -> h" {
           assert_eq!(to_hiragana("座禅‘zazen’スタイル"), "座禅「ざぜん」すたいる");
+          assert_eq!(to_hiragana("座禅‘zazen’スタイル").len(), "座禅「ざぜん」すたいる".len());
         }
         it "It converts non-hiragana when pass_romaji is false h -> k" {
           assert_eq!(to_katakana("座禅‘zazen’すたいる"), "座禅「ザゼン」スタイル");
@@ -141,6 +153,7 @@ describe "character_conversion" {
 describe "case_sensitivity" {
     it "cAse DoEsnT MatTER for to_hiragana()" {
         assert_eq!(to_hiragana("aiueo"), to_hiragana("AIUEO"));
+        assert_eq!(to_hiragana("aiueo").len(), to_hiragana("AIUEO").len());
     }
     it "cAse DoEsnT MatTER for to_katakana()" {
         assert_eq!(to_katakana("aiueo"), to_katakana("AIUEO"));

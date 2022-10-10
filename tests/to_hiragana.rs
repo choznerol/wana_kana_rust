@@ -17,7 +17,7 @@ fn with_obsolete_kana() -> Options {
 speculate! {
 
     it "sane defaults" {
-        assert_eq!(to_hiragana(""), "");
+        assert_eq!(to_hiragana("").len(), "".len());
     }
 
   it "Quick Brown Fox - Romaji to Hiragana" {
@@ -60,7 +60,9 @@ speculate! {
   describe "passRomaji" {
     it "false by default" {
       assert_eq!(to_hiragana("only カナ"), "おんly かな");
+      assert_eq!(to_hiragana("only カナ").len(), "おんly かな".len());
       assert_eq!(to_hiragana_with_opt("only カナ", Options{ pass_romaji: true, .. Default::default() }), "only かな");
+      assert_eq!(to_hiragana_with_opt("only カナ", Options{ pass_romaji: true, .. Default::default() }).len(), "only かな".len());
     }
   }
 
@@ -68,11 +70,13 @@ speculate! {
     it "converts to hiragana long vowels" {
       assert_eq!(to_hiragana("スーパー"), "すうぱあ");
       assert_eq!(to_hiragana("バンゴー"), "ばんごう");
+      assert_eq!(to_hiragana("バンゴー").len(), "ばんごう".len());
     }
   }
 
   it "mixed input" {
     assert_eq!(to_hiragana("#22 ２２漢字、toukyou, オオサカ"), "#22 ２２漢字、とうきょう、 おおさか");
+    assert_eq!(to_hiragana("#22 ２２漢字、toukyou, オオサカ").len(), "#22 ２２漢字、とうきょう、 おおさか".len());
   }
 
 }
