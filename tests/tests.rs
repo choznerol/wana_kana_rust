@@ -1,5 +1,4 @@
 #![feature(test)]
-#![feature(non_ascii_idents)]
 
 #[cfg(test)]
 extern crate test;
